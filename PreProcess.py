@@ -42,6 +42,20 @@ if __name__ == '__main__':
     for i in range(3):
         plt.plot(data[:,i],'-.',label = str(i))
     plt.legend()
+    plt.grid()
+
+
+
+    plt.figure()
+    data[:,3:6] = data[:,3:6] / (16034.53 /9.8)
+
+    plt.title(' ')
+    for i in range(3):
+        plt.plot(data[:,i+3],'-.',label = str(i))
+    plt.legend()
+    plt.grid()
+
+    print(np.linalg.norm(data[0,3:6]))
 
 
 
