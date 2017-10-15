@@ -48,6 +48,7 @@ if __name__ == '__main__':
 
 
     # acc
+    print('before nomr:', np.linalg.norm(data[0,3:6]))
     data[:,3:6] = data[:,3:6] / (16034.53 / 9.8)
 
     plt.figure()
