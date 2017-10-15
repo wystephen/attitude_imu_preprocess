@@ -74,10 +74,13 @@ if __name__ == '__main__':
     plt.legend()
 
 
-    out_data = np.zeros([data.shape[0],9])
+    out_data = np.zeros([data.shape[0],10])
 
-    out_data[:,0:6] = data[:,3:9] * 1.0
-    out_data[:,6:9] = data[:,:3] *1.0
+    out_data[:,1:7] = data[:,3:9] * 1.0
+    out_data[:,7:10] = data[:,:3] *1.0
+
+    for i in range(1,out_data.shape[0]-1):
+        out_data[i,0] = out_data[i-1,0] + 0.01
 
     np.savetxt(dir_name+"ImuData.csv",out_data)
 
