@@ -35,10 +35,11 @@ if __name__ == '__main__':
 
     data = np.loadtxt(file_name)
 
+    # att
     data[:,:3] = data[:,:3] / 10.0
 
     plt.figure()
-    plt.title('attitude')
+    plt.title('attitude rad')
     for i in range(3):
         plt.plot(data[:,i],'-.',label = str(i))
     plt.legend()
@@ -46,16 +47,28 @@ if __name__ == '__main__':
 
 
 
-    plt.figure()
-    data[:,3:6] = data[:,3:6] / (16034.53 /9.8)
+    # acc
+    data[:,3:6] = data[:,3:6] / (16034.53 / 9.8)
 
-    plt.title(' ')
+    plt.figure()
+    plt.title('gravity m/s^2')
     for i in range(3):
         plt.plot(data[:,i+3],'-.',label = str(i))
     plt.legend()
     plt.grid()
 
-    print(np.linalg.norm(data[0,3:6]))
+    print('norm of acc is :',np.linalg.norm(data[0,3:6]))
+    # print(data[0,3:6].shape)
+
+
+    plt.figure()
+    plt.title(' ')
+
+    for i in range(3):
+        plt.plot(data[:,i+6],'-.',label =str(i))
+    plt.grid()
+    plt.legend()
+
 
 
 
