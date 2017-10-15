@@ -31,9 +31,11 @@ import matplotlib.pyplot as plt
 
 if __name__ == '__main__':
 
-    file_name = '/home/steve/Data/AttitudeIMU/2.txt'
+    dir_name = '/home/steve/Data/AttitudeIMU/'
+    file_name = dir_name + '2.txt'
 
     data = np.loadtxt(file_name)
+    data = data.astype(float)
 
     # att
     data[:,:3] = data[:,:3] / 10.0
@@ -49,7 +51,7 @@ if __name__ == '__main__':
 
     # acc
     print('before nomr:', np.linalg.norm(data[0,3:6]))
-    data[:,3:6] = data[:,3:6] / (16034.53 / 9.8)
+    data[:,3:6] = data[:,3:6] / (16384 )* (9.8)
 
     plt.figure()
     plt.title('gravity m/s^2')
@@ -62,8 +64,9 @@ if __name__ == '__main__':
     # print(data[0,3:6].shape)
 
 
+    data[:,6:9] = data[:,6:9] /(32.8) * np.pi / 180.0
     plt.figure()
-    plt.title(' ')
+    plt.title('gyr rad/s ')
 
     for i in range(3):
         plt.plot(data[:,i+6],'-.',label =str(i))
@@ -71,6 +74,12 @@ if __name__ == '__main__':
     plt.legend()
 
 
+    out_data = np.zeros([data.shape[0],9])
+
+    out_data[:,0:6] = data[:,3:9] * 1.0
+    out_data[:,6:9] = data[:,:3] *1.0
+
+    np.savetxt(dir_name+"ImuData.csv",out_data)
 
 
 
