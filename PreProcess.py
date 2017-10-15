@@ -82,7 +82,7 @@ if __name__ == '__main__':
     for i in range(1,out_data.shape[0]-1):
         out_data[i,0] = out_data[i-1,0] + 0.01
 
-    np.savetxt(dir_name+"ImuData.csv",out_data)
+    np.savetxt(dir_name+"ImuData.csv",out_data,delimiter=',')
 
 
 
