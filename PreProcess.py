@@ -28,7 +28,6 @@ import scipy as sp
 
 import matplotlib.pyplot as plt
 
-
 if __name__ == '__main__':
 
     dir_name = '/home/steve/Data/AttitudeIMU/'
@@ -38,61 +37,56 @@ if __name__ == '__main__':
     data = data.astype(float)
 
     # att
-    data[:,:3] = data[:,:3] / 10.0
+    data[:, :3] = data[:, :3] / 10.0
 
     plt.figure()
     plt.title('attitude rad')
     for i in range(3):
-        plt.plot(data[:,i],'-.',label = str(i))
-        if i is 1:
-            data[:,i] = data[:,i] * -1.0
+        plt.plot(data[:, i], '-.', label=str(i))
+        # if i is 1:
+        #     data[:,i] = data[:,i] * -1.0
 
     plt.legend()
     plt.grid()
 
-
-
     # acc
-    print('before nomr:', np.linalg.norm(data[0,3:6]))
-    data[:,3:6] = data[:,3:6] / (16384 )* (9.8)
+    print('before nomr:', np.linalg.norm(data[0, 3:6]))
+    data[:, 3:6] = data[:, 3:6] / (16384) * (9.8)
 
     plt.figure()
     plt.title('gravity m/s^2')
     for i in range(3):
-        plt.plot(data[:,i+3],'-.',label = str(i))
-        if i is 1:
-            data[:,i+3] = data[:,i+3] * -1.0
+        plt.plot(data[:, i + 3], '-.', label=str(i))
+        # if i is 1:
+        #     data[:,i+3] = data[:,i+3] * -1.0
     plt.legend()
     plt.grid()
 
-    print('norm of acc is :',np.linalg.norm(data[0,3:6]))
+    print('norm of acc is :', np.linalg.norm(data[0, 3:6]))
     # print(data[0,3:6].shape)
 
 
-    data[:,6:9] = data[:,6:9] /(32.8) * np.pi / 180.0
+    data[:, 6:9] = data[:, 6:9] / (32.8) * np.pi / 180.0
     plt.figure()
     plt.title('gyr rad/s ')
 
     for i in range(3):
-        plt.plot(data[:,i+6],'-.',label =str(i))
+        plt.plot(data[:, i + 6], '-.', label=str(i))
     plt.grid()
     plt.legend()
 
+    out_data = np.zeros([data.shape[0], 10])
 
-    out_data = np.zeros([data.shape[0],10])
+    out_data[:, 1:7] = data[:, 3:9] * 1.0
+    out_data[:, 7:10] = data[:, :3] * 1.0
 
-    out_data[:,1:7] = data[:,3:9] * 1.0
-    out_data[:,7:10] = data[:,:3] *1.0
+    for i in range(1, out_data.shape[0] - 1):
+        out_data[i, 0] = out_data[i - 1, 0] + 0.01
 
-    for i in range(1,out_data.shape[0]-1):
-        out_data[i,0] = out_data[i-1,0] + 0.01
-
-    np.savetxt(dir_name+"ImuData.csv",out_data,delimiter=',')
-
+    np.savetxt(dir_name + "ImuData.csv", out_data, delimiter=',')
 
     plt.figure()
-    print(min(data[:,2]),max(data[:,2]))
-    plt.hist(data[:,0],90)
-
+    print(min(data[:, 2]), max(data[:, 2]))
+    plt.hist(data[:, 0], 90)
 
     plt.show()
