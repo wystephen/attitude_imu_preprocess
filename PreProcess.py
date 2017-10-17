@@ -83,13 +83,37 @@ if __name__ == '__main__':
     for i in range(1, out_data.shape[0] - 1):
         out_data[i, 0] = out_data[i - 1, 0] + 0.01
 
-    for i in [2,5,8]:
-        out_data[:,i] = out_data[:,i] * -1.0
+    # for i in [2,5,8]:
+    #     i = i-1
+    #     out_data[:,i] = out_data[:,i] * -1.0
 
     np.savetxt(dir_name + "ImuData.csv", out_data, delimiter=',')
+
+
 
     plt.figure()
     print(min(data[:, 2]), max(data[:, 2]))
     plt.hist(data[:, 0], 90)
+
+    plt.figure()
+    plt.title('mag norm')
+    plt.plot(np.linalg.norm(data[:,9:12],axis=1))
+
+    plt.figure()
+    plt.title('mag normalized')
+    mag_norm = np.linalg.norm(data[:,9:12],axis=1)
+
+    for i in [9,10,11]:
+        plt.plot(data[:,i]/mag_norm,'-*',label=str(i))
+    plt.grid()
+    plt.legend()
+
+    plt.figure()
+    plt.title('mag arctan2(x,y)')
+    plt.plot(np.arctan2(data[:,9],data[:,10])/np.pi * 180.0,'+r')
+
+
+
+    plt.grid()
 
     plt.show()
