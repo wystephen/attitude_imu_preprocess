@@ -51,7 +51,7 @@ if __name__ == '__main__':
 
     # acc
     print('before nomr:', np.linalg.norm(data[0, 3:6]))
-    data[:, 3:6] = data[:, 3:6] / (16384) * (9.8)
+    data[:, 3:6] = data[:, 3:6] / (16384.0) * (9.8)
 
     plt.figure()
     plt.title('gravity m/s^2')
@@ -82,6 +82,9 @@ if __name__ == '__main__':
 
     for i in range(1, out_data.shape[0] - 1):
         out_data[i, 0] = out_data[i - 1, 0] + 0.01
+
+    for i in [2,5,8]:
+        out_data[:,i] = out_data[:,i] * -1.0
 
     np.savetxt(dir_name + "ImuData.csv", out_data, delimiter=',')
 
