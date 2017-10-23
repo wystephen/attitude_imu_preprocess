@@ -43,8 +43,8 @@ if __name__ == '__main__':
     plt.title('attitude rad')
     for i in range(3):
         plt.plot(data[:, i], '-.', label=str(i))
-        # if i is 1:
-        #     data[:,i] = data[:,i] * -1.0
+        if i is 1:
+            data[:,i] = data[:,i] * -1.0
 
     plt.legend()
     plt.grid()
@@ -57,8 +57,8 @@ if __name__ == '__main__':
     plt.title('gravity m/s^2')
     for i in range(3):
         plt.plot(data[:, i + 3], '-.', label=str(i))
-        # if i is 1:
-        #     data[:,i+3] = data[:,i+3] * -1.0
+        if i is 1:
+            data[:,i+3] = data[:,i+3] * -1.0
     plt.legend()
     plt.grid()
 
