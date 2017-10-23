@@ -72,6 +72,8 @@ if __name__ == '__main__':
 
     for i in range(3):
         plt.plot(data[:, i + 6], '-.', label=str(i))
+        if i is 1:
+            data[:,i+6] = data[:,i+6] * -1.0
     plt.grid()
     plt.legend()
 
